@@ -1,65 +1,73 @@
 import React, { useState } from "react";
 
-export default function ContactForm() {
-  const [formData, setformData] = useState({
-    Name: "",
-    Email: "",
+export default function () {
+
+
+const [formData , setFormData] = useState({
+
+username : "",
+comments : "",
+rating : 0,
+
+
+})
+
+
+const handleChange = (event) => {
+  const { name, value } = event.target;
+  setFormData({
+    ...formData,               // lowercase `formData`, spreads existing state
+    [name]: value              // sets the specific field dynamically
   });
+};
 
-  const setFormDetails = (event) => {
-    setformData({
-      ...formData, // ✅ Spread the existing form data
-      [event.target.name]: event.target.value, // ✅ Correct syntax for dynamic key
-    });
-  };
 
-  function handleSubmit(e) {
-    e.preventDefault(); // ✅ Prevent form from refreshing the page
-    console.log("The name is", formData.Name);
-    console.log("The email is", formData.Email);
-  }
+const handleSubmit = (event)=>{
+
+ console.log( formData);
+ event.preventDefault();
+setFormData({
+
+    username : "",
+comments : "",
+rating : 0,
+})
+
+   
+
+}
 
   return (
     <div>
-      <form>
+      <h4>Comments About shows</h4>
+      <form action="" onSubmit={handleSubmit}>
         <div>
-          <label
-            htmlFor="fullname"
-            style={{ display: "block", marginBottom: "8px" }}
-          >
-            Enter Full Name
+          <label htmlFor="username" style={{ display: "block" }}>
+            Enter Username
           </label>
-          <input
-            type="text"
-            name="Name"
-            id="fullname"
-            placeholder="Enter Full Name"
-            value={formData.Name}
-            onChange={setFormDetails}
-          />
+
+          <input type="text" name="username" placeholder="username" id="username" value={formData.username} onChange={handleChange}/>
         </div>
+
         <br />
         <br />
-        <div>
-          <label
-            htmlFor="email"
-            style={{ display: "block", marginBottom: "8px" }}
-          >
-            Enter Email
-          </label>
-          <input
-            type="email"
-            name="Email"
-            id="email"
-            placeholder="Enter Email"
-            value={formData.Email}
-            onChange={setFormDetails}
-          />
-        </div>
+        <label htmlFor="comments" style={{ display: "block" }}>
+          Enter Comments
+        </label>
+        <textarea id="comments" name="comments" value={formData.comments} onChange={handleChange}>
+          Comments
+        </textarea>
         <br />
         <br />
 
-        <button onClick={handleSubmit}>Submit</button>
+        <label htmlFor="rating" style={{ display: "block" }}>
+          Enter Rating
+        </label>
+        <input type="number" name="rating" id="rating" placeholder="Rating" value={formData.rating} onChange={handleChange}/>
+
+        <br />
+        <br />
+        <button type="submit">Add Comments</button>
       </form>
     </div>
   );
